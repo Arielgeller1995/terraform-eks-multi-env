@@ -1,4 +1,4 @@
-environment = "dev"
+environment = "stage"
 
 # VPC and Subnets Variables
 vpc_cidr_block = "123.10.0.0/16"
