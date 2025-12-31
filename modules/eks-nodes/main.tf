@@ -39,7 +39,7 @@ data "aws_subnets" "private" {
 
   filter {
     name   = "tag:Name"
-    values = ["${var.environment}-pri*"]
+    values = ["${var.environment}-priv*"]
   }
 }
 
@@ -49,6 +49,8 @@ resource "aws_eks_node_group" "eks_node_group" {
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
   subnet_ids      = data.aws_subnets.private.ids
+  instance_types  = var.instance_types
+
 
   scaling_config {
     desired_size = var.desired_size
