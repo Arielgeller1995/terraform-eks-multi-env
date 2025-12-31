@@ -3,9 +3,9 @@ provider "aws" {
 }
 
 module "vpc" {
-  source          = "../../modules/vpc"
-  vpc_cidr_block  = var.vpc_cidr_block
-  environment     = var.environment
+  source         = "../../modules/vpc"
+  vpc_cidr_block = var.vpc_cidr_block
+  environment    = var.environment
 }
 
 module "subnet" {
@@ -17,10 +17,10 @@ module "subnet" {
 }
 
 module "eks-cluster" {
-  source        = "../../modules/eks-cluster"
-  environment   = var.environment
-  cluster_name  = var.cluster_name
-  vpc_id        = module.vpc.vpc_id
+  source       = "../../modules/eks-cluster"
+  environment  = var.environment
+  cluster_name = var.cluster_name
+  vpc_id       = module.vpc.vpc_id
 }
 
 module "eks-nodes" {

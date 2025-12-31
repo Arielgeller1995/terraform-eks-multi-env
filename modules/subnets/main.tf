@@ -1,33 +1,33 @@
 # Create a public subnet inside the VPC
 resource "aws_subnet" "public_subnet" {
-    for_each = var.public_subnets
-    vpc_id = var.vpc_id
-    cidr_block = each.value.cidr
-    availability_zone = each.value.az
-    map_public_ip_on_launch = "true"
-    tags = {
-      Name = "${var.environment}-${each.key}"
-    }
+  for_each                = var.public_subnets
+  vpc_id                  = var.vpc_id
+  cidr_block              = each.value.cidr
+  availability_zone       = each.value.az
+  map_public_ip_on_launch = "true"
+  tags = {
+    Name = "${var.environment}-${each.key}"
+  }
 }
 
 # Create a private subnet inside the VPC
 resource "aws_subnet" "private_subnet" {
-    for_each = var.private_subnets
-    vpc_id = var.vpc_id
-    cidr_block = each.value.cidr
-    availability_zone = each.value.az
-    tags = {
-      Name = "${var.environment}-${each.key}"
-    }
+  for_each          = var.private_subnets
+  vpc_id            = var.vpc_id
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
+  tags = {
+    Name = "${var.environment}-${each.key}"
+  }
 }
 
 
 # Create an Internet Gateway and attach it to the VPC
 resource "aws_internet_gateway" "igw" {
-    vpc_id = var.vpc_id
-    tags = {
-      Name = "${var.environment}-igw"
-    }
+  vpc_id = var.vpc_id
+  tags = {
+    Name = "${var.environment}-igw"
+  }
 }
 
 # Create a route table for the public subnet with default route to Internet Gateway
@@ -37,7 +37,7 @@ resource "aws_route_table" "public_rt" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
-    
+
   }
 
   tags = {
@@ -47,9 +47,9 @@ resource "aws_route_table" "public_rt" {
 
 # Associate the public subnet with the public route table  
 resource "aws_route_table_association" "public_rt_association" {
-    for_each       = aws_subnet.public_subnet
-    subnet_id      = each.value.id
-    route_table_id = aws_route_table.public_rt.id
+  for_each       = aws_subnet.public_subnet
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.public_rt.id
 }
 
 
@@ -84,7 +84,7 @@ resource "aws_route_table" "private_rt" {
   vpc_id = var.vpc_id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gw.id
   }
 
@@ -95,7 +95,7 @@ resource "aws_route_table" "private_rt" {
 
 # Associate the private subnet with the private route table 
 resource "aws_route_table_association" "private_rt_association" {
-    for_each       = aws_subnet.private_subnet
-    subnet_id      = each.value.id
-    route_table_id = aws_route_table.private_rt.id
+  for_each       = aws_subnet.private_subnet
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.private_rt.id
 }

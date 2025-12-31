@@ -1,9 +1,9 @@
 variable "instance_type" {
-  type = string
+  type        = string
   description = "Instance type"
 }
 
 variable "env" {
-    type = string
-    description = "envirnoments (dev/stage/prod)"
+  type        = string
+  description = "envirnoments (dev/stage/prod)"
 }
