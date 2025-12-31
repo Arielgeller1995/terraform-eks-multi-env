@@ -62,7 +62,7 @@ resource "aws_eip" "elastic_ip" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
