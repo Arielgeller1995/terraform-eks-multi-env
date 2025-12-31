@@ -21,6 +21,7 @@ module "eks-cluster" {
   environment   = var.environment
   cluster_name  = var.cluster_name
   vpc_id        = module.vpc.vpc_id
+  subnet_ids    = module.subnet.private_subnet_ids
 }
 
 module "eks-nodes" {
@@ -29,6 +30,7 @@ module "eks-nodes" {
   cluster_name    = module.eks-cluster.eks_cluster_name
   vpc_id          = module.vpc.vpc_id
   environment     = var.environment
+  subnet_ids      = module.subnet.private_subnet_ids
   desired_size    = var.desired_size
   max_size        = var.max_size
   min_size        = var.min_size

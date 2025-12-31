@@ -19,7 +19,7 @@ output "eks_node_group_role_arn" {
 # The subnet IDs where the EKS Node Group is deployed
 output "eks_node_group_subnet_ids" {
   description = "The subnet IDs where the EKS Node Group is deployed"
-  value       = data.aws_subnets.private.ids
+  value       = var.subnet_ids
 }
 
 # The scaling configuration for the EKS Node Group

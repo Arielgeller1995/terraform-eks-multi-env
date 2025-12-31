@@ -12,6 +12,16 @@ variable "vpc_id" {
   description = "VPC ID to associate the EKS cluster with"
 }
 
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs for the EKS cluster VPC config"
+
+  validation {
+    condition     = length(var.subnet_ids) >= 1
+    error_message = "subnet_ids must contain at least one subnet id."
+  }
+}
+
 variable "eks_version" {
   type        = string
   default     = "1.31"
