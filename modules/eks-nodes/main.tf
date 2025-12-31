@@ -30,25 +30,13 @@ resource "aws_iam_role_policy_attachment" "eks_nodegroup_ecr_readonly_policy_att
   role       = aws_iam_role.eks_node_group_role.name
 }
 
-# Fetch private subnets in the VPC
-data "aws_subnets" "private" {
-  filter {
-    name   = "vpc-id"
-    values = [var.vpc_id]
-  }
-
-  filter {
-    name   = "tag:Name"
-    values = ["${var.environment}-priv*"]
-  }
-}
 
 # EKS Node Group Definition
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = var.cluster_name
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
-  subnet_ids      = data.aws_subnets.private.ids
+  subnet_ids      = var.subnet_ids
   instance_types  = var.instance_types
 
 
@@ -63,6 +51,5 @@ resource "aws_eks_node_group" "eks_node_group" {
     aws_iam_role_policy_attachment.eks_nodegroup_worker_policy_attachment,
     aws_iam_role_policy_attachment.eks_nodegroup_cni_policy_attachment,
     aws_iam_role_policy_attachment.eks_nodegroup_ecr_readonly_policy_attachment,
-    data.aws_subnets.private,
   ]
 }

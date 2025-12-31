@@ -24,18 +24,6 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attachment" {
   role       = aws_iam_role.eks_cluster_role.name
 }
 
-# Get public subnets by tag
-data "aws_subnets" "public" {
-  filter {
-    name   = "vpc-id"
-    values = [var.vpc_id]
-  }
-
-  filter {
-    name   = "tag:Name"
-    values = ["${var.environment}-public*"]
-  }
-}
 
 # Create EKS Cluster
 resource "aws_eks_cluster" "eks_cluster" {
@@ -44,7 +32,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   version  = var.eks_version
 
   vpc_config {
-    subnet_ids = data.aws_subnets.public.ids
+    subnet_ids = var.subnet_ids
   }
 
   depends_on = [

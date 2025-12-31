@@ -22,6 +22,16 @@ variable "environment" {
   description = "The environment (e.g., dev, staging, prod)"
 }
 
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs where the EKS Node Group should be deployed"
+
+  validation {
+    condition     = length(var.subnet_ids) >= 1
+    error_message = "subnet_ids must contain at least one subnet id."
+  }
+}
+
 # Desired number of nodes in the node group
 variable "desired_size" {
   type        = number
