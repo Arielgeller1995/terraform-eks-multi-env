@@ -22,6 +22,16 @@ variable "environment" {
   description = "The environment (e.g., dev, staging, prod)"
 }
 
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs where the EKS Node Group should be deployed"
+
+  validation {
+    condition     = length(var.subnet_ids) >= 1
+    error_message = "subnet_ids must contain at least one subnet id."
+  }
+}
+
 # Desired number of nodes in the node group
 variable "desired_size" {
   type        = number
@@ -38,4 +48,9 @@ variable "max_size" {
 variable "min_size" {
   type        = number
   description = "Minimum size of nodes in the EKS Node Group"
+}
+variable "instance_types" {
+  type        = list(string)
+  description = "Instance types for the EKS Node Group"
+  default     = ["t3.micro"]
 }

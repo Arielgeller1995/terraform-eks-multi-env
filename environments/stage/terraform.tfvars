@@ -1,4 +1,4 @@
-environment = "dev"
+environment = "stage"
 
 # VPC and Subnets Variables
 vpc_cidr_block = "123.10.0.0/16"
@@ -14,11 +14,11 @@ private_subnets = {
 }
 
 # Cluster and Node Group Variables
-region         = "eu-north-1"
-cluster_name   = "myclust"
+region          = "eu-north-1"
+cluster_name    = "myclust"
 node_group_name = "mynode"
 
 # Scaling Configuration for Node Group
-desired_size   = 1
-max_size       = 1
-min_size       = 1
+desired_size = 1
+max_size     = 1
+min_size     = 1
