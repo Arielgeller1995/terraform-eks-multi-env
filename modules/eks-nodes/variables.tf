@@ -52,5 +52,5 @@ variable "min_size" {
 variable "instance_types" {
   type        = list(string)
   description = "Instance types for the EKS Node Group"
-  default     = ["t3.medium"]
+  default     = ["t3.micro"]
 }

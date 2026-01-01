@@ -32,7 +32,7 @@ module "eks-nodes" {
   vpc_id          = module.vpc.vpc_id
   environment     = var.environment
   subnet_ids      = module.subnet.private_subnet_ids
-  desired_size    = var.desired_size
-  max_size        = var.max_size
-  min_size        = var.min_size
+  desired_size    = 3
+  max_size        = 5
+  min_size        = 3
 }
