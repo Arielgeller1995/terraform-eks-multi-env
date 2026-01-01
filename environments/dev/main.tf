@@ -27,7 +27,7 @@ module "eks-cluster" {
 
 module "eks-nodes" {
   source          = "../../modules/eks-nodes"
-  node_group_name = var.node_group_name
+  node_group_name = "${var.node_group_name}-v2"
   cluster_name    = module.eks-cluster.eks_cluster_name
   vpc_id          = module.vpc.vpc_id
   environment     = var.environment
@@ -35,4 +35,5 @@ module "eks-nodes" {
   desired_size    = 3
   max_size        = 5
   min_size        = 3
+  instance_types  = ["t3.micro"]
 }
