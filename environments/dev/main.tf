@@ -32,8 +32,8 @@ module "eks-nodes" {
   vpc_id          = module.vpc.vpc_id
   environment     = var.environment
   subnet_ids      = module.subnet.private_subnet_ids
-  desired_size    = 3
-  max_size        = 5
-  min_size        = 3
+  desired_size    = 4
+  max_size        = 6
+  min_size        = 4
   instance_types  = ["t3.micro"]
 }
