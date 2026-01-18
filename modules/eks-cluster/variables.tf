@@ -12,6 +12,11 @@ variable "vpc_id" {
   description = "VPC ID to associate the EKS cluster with"
 }
 
+variable "public_subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs for the EKS cluster networking"
+}
+
 variable "eks_version" {
   type        = string
   default     = "1.31"
