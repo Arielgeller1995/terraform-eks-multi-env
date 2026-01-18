@@ -22,6 +22,12 @@ variable "environment" {
   description = "The environment (e.g., dev, staging, prod)"
 }
 
+# Subnet IDs for the node group
+variable "private_subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs where the EKS Node Group is deployed"
+}
+
 # Desired number of nodes in the node group
 variable "desired_size" {
   type        = number
